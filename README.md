@@ -7,19 +7,17 @@ Projektin tarkoitus on tehdä perinteisestä nginx-tiedostolistausarkistosta mod
 
 Suunniteltuja käyttötapauksia:
 
-*Käyttäjä voi lisätä arkistoon kuvia
+* Käyttäjä voi lisätä arkistoon kuvia
 
-*Kuville voi lisätä kommentteja
+* Kuville voi lisätä kommentteja
 
-*Kuville voi antaa pisteitä
+* Kuville voi antaa pisteitä
 
-*Käyttäjäkohtainen kirjautuminen
+* Käyttäjäkohtainen kirjautuminen
 
-*Käyttäjillä on upvote/downvote-historia ja kommenttihistoria
+* Käyttäjillä on upvote/downvote-historia ja kommenttihistoria
 
-*Erillinen admin-käyttäjä, joka voi moderoida käyttäjien kommentteja ja bannata käyttäjiä
+* Erillinen admin-käyttäjä, joka voi moderoida käyttäjien kommentteja ja bannata käyttäjiä
 
-## Linkit tietokantakaavioon ja user storyihin
-
-https://github.com/Kargamborgh/meemiarkisto/blob/master/documentation/db_sketch_wk2.jpg
-https://github.com/Kargamborgh/meemiarkisto/blob/master/documentation/user_stories.md
+[Tietokantakaavion hahmotelma](https://github.com/Kargamborgh/meemiarkisto/blob/master/documentation/db_sketch_wk2.jpg)
+[User stories](https://github.com/Kargamborgh/meemiarkisto/blob/master/documentation/user_stories.md)
