@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Meme</th>
+      <th>Points</th>
+    </tr>
+    {% for meme in memes %}
+    <tr>
+      <td>{{ meme.title }}</td>
+      <td>{{ meme.points }}</td>
+      <td>
+          <form method="POST" action="{{ url_for('memes_increase_score', meme_id=meme.id) }}">
+              <input type="submit" value="Upvote"/>
+          </form>
+      </td>
+      <!-- implement decrease_score next week -->
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

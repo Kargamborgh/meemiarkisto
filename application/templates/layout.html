@@ -6,6 +6,10 @@
   </head>
 
   <body>
+    <ul>
+      <li><a href="{{ url_for('memes_index') }}">List memes</a></li>
+      <li><a href="{{ url_for('memes_form') }}">Add meme</a></li>
+    </ul>
     {% block body %}
     <p>
   content
