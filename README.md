@@ -1,15 +1,20 @@
-# meemiarkisto
-HY tsoha 2018: henkilökohtaisen meemiarkiston modernisointi
+# HY tsoha 2018: henkilökohtaisen meemiarkiston modernisointi, nk. meemiarkisto
 
-Projekti käyttää omaa henkilökohtaista internetissä olevaa meemiarkistoa.
+https://tsoha-python-meemiarkisto.herokuapp.com
+
+Projekti käyttää kuvamateriaalina omaa henkilökohtaista meemiarkistoa.
 Projektin tarkoitus on tehdä perinteisestä nginx-tiedostolistausarkistosta modernimpi kuvasivusto jossa kuvia voi selailla helposti.
 
--Kuville voi lisätä kommentteja
+Suunniteltuja käyttötapauksia:
 
--Kuville voi antaa pisteitä
+⋅⋅*Käyttäjä voi lisätä arkistoon kuvia
 
--Käyttäjäkohtainen kirjautuminen
+⋅⋅*Kuville voi lisätä kommentteja
 
--Käyttäjillä on upvote/downvote-historia ja kommenttihistoria
+⋅⋅*Kuville voi antaa pisteitä
 
--Erillinen admin-käyttäjä, joka voi moderoida käyttäjien kommentteja ja bannata käyttäjiä
+⋅⋅*Käyttäjäkohtainen kirjautuminen
+
+⋅⋅*Käyttäjillä on upvote/downvote-historia ja kommenttihistoria
+
+⋅⋅*Erillinen admin-käyttäjä, joka voi moderoida käyttäjien kommentteja ja bannata käyttäjiä
