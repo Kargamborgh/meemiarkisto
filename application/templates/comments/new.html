@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>Register</h1>
+<form action="" method="POST">
+    <table>
+        <tr>
+            <td>
+                {{ form.text.label }}
+            </td>
+            <td>
+                {{ form.text }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                {{ form.submit() }}
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}
