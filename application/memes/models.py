@@ -14,6 +14,8 @@ class Meme(db.Model):
     points = db.Column(db.Integer, nullable=False)
     #image = db.Column(db.LargeBinary) <-- this currently messes everything up, commented out for now
 
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+
     def __init__(self, title, points):
         self.title = title
         self.points = 0

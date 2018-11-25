@@ -1,6 +1,6 @@
 from application import app, db
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from application.memes.models import Meme
 from application.memes.forms import MemeForm
 
@@ -40,6 +40,7 @@ def memes_create():
         return render_template("memes/new.html", form = form)
 
     m = Meme(title=form.title.data, points=0)
+    m.account_id = current_user.id
 
     db.session().add(m)
     db.session().commit()
