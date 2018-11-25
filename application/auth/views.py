@@ -46,4 +46,4 @@ def auth_register():
         db.session().commit()
 
         return redirect(url_for("index"))
-    return render_template('registerform.html', title="Register", form=RegisterForm)
+    return render_template('auth/registerform.html', title="Register", form=RegisterForm)

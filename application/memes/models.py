@@ -1,14 +1,12 @@
 from application import db
+from application.models import Base
 
 # A meme has id as primary key, a creation (upload) date, a title and upvotes/downvotes shown as points
 # Later a meme will also have fields for comments, who uploaded it etc.
 
-class Meme(db.Model):
+class Meme(Base):
 
     __tablename__ = "meme"
-
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     title = db.Column(db.String(144), nullable=False)
     points = db.Column(db.Integer, nullable=False)
@@ -16,6 +14,10 @@ class Meme(db.Model):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
 
-    def __init__(self, title, points):
+    def __init__(self, title, points, date_created):
         self.title = title
         self.points = 0
+        self.date_created = date_created
+
+    def __repr__(self):
+        return '<Meme {}>'.format(self.title)
