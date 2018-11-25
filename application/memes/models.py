@@ -4,13 +4,16 @@ from application import db
 # Later a meme will also have fields for comments, who uploaded it etc.
 
 class Meme(db.Model):
+
+    __tablename__ = "meme"
+
     id = db.Column(db.Integer, primary_key=True)
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     title = db.Column(db.String(144), nullable=False)
     points = db.Column(db.Integer, nullable=False)
-    #image = db.Column(db.LargeBinary) <-- this currently fucks everything up, commented out for now
+    #image = db.Column(db.LargeBinary) <-- this currently messes everything up, commented out for now
 
-    def __init__(self, title):
+    def __init__(self, title, points):
         self.title = title
         self.points = 0
