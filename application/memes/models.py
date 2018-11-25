@@ -1,18 +1,24 @@
-from application import db
+from application import db, app
 from application.models import Base
 
-# A meme has id as primary key, a creation (upload) date, a title and upvotes/downvotes shown as points
-# Later a meme will also have fields for comments, who uploaded it etc.
+from flask_uploads import configure_uploads
+
+# A meme consist of an image, a title, points, filename (when uploading),
+# id of user who uploaded the meme, 0-* comments
+# A meme image will later be served from '/images' to correspond to a meme entry
 
 class Meme(Base):
 
     __tablename__ = "meme"
 
+    # image upload is still under construction
+    # image = file
     title = db.Column(db.String(144), nullable=False)
     points = db.Column(db.Integer, nullable=False)
-    #image = db.Column(db.LargeBinary) <-- this currently messes everything up, commented out for now
-
+    filename = db.Column(db.String(144), nullable=False)
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+    comment_id = db.relationship("Comment", backref="comment", lazy=True)
+
 
     def __init__(self, title, points, date_created):
         self.title = title

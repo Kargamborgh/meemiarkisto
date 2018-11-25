@@ -11,4 +11,4 @@ class Comment(Base):
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
 
     # a comment is written on any single meme entry
-    memes = db.relationship("Meme", backref="account", lazy=True)
+    memes = db.Column(db.Integer, db.ForeignKey("meme.id"), nullable=False)

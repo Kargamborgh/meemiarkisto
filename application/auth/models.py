@@ -1,6 +1,10 @@
 from application import db
 from application.models import Base
+# these below are not currently in use, futureproofing for added security
 from werkzeug.security import generate_password_hash, check_password_hash
+
+# users can submit memes and leave comments which are both tied to their
+# individual user accounts
 
 class User(Base):
 
@@ -9,9 +13,10 @@ class User(Base):
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), index=True, nullable=False)
     password = db.Column(db.String(144), nullable=False)
-    #password_hash = db.Column(db.String(128))
+    #password_hash = db.Column(db.String(128)) this will be implemented later
 
-    memes = db.relationship("Meme", backref='account', lazy=True)
+    meme_id = db.relationship("Meme", backref='account', lazy=True)
+    comment_id = db.relationship("Comment", backref='comment', lazy=True)
 
     def __init__(self, name, username, password):
         self.name = name
