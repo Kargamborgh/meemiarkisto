@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
   
 from application import app, db
 from application.auth.models import User
@@ -36,8 +36,8 @@ def auth_register():
 
     form = RegisterForm()
 
-    if form.validate_on_submit():
     # WTForms validators in auth/forms.py
+    if form.validate_on_submit():
         u = User(name=form.name.data,
                  username=form.username.data,
                  password=form.password.data)
@@ -45,5 +45,5 @@ def auth_register():
         db.session().add(u)
         db.session().commit()
 
-        return redirect(url_for("index"))
-    return render_template('auth/registerform.html', title="Register", form=RegisterForm)
+        return redirect(url_for("auth_login"))
+    return render_template('auth/registerform.html', title="Register", form=form)
