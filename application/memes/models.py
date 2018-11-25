@@ -11,13 +11,14 @@ class Meme(Base):
 
     __tablename__ = "meme"
 
-    # image upload is still under construction
+    # image field & upload is still under construction
     # image = file
     title = db.Column(db.String(144), nullable=False)
     points = db.Column(db.Integer, nullable=False)
     filename = db.Column(db.String(144), nullable=False)
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
-    comment_id = db.relationship("Comment", backref="comment", lazy=True)
+    # comment table breaks things because of emptiness and relationships, commented out for now
+    # comment_id = db.relationship("Comment", backref="comment", lazy=True)
 
 
     def __init__(self, title, points, date_created):
