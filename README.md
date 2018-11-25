@@ -19,13 +19,13 @@ Suunniteltuja käyttötapauksia:
 
 * Erillinen admin-käyttäjä, joka voi moderoida käyttäjien kommentteja ja bannata käyttäjiä
 
-Tällä hetkellä toimivia käyttötapauksia:
+Tällä hetkellä toimivia käyttötapauksia (vko4):
 
 * Käyttäjä voi rekisteröityä
 
 * Käyttäjä voi kirjautua
 
-Allekirjoittaneen loistavat prokrastinaatiotaidot ja parhaimmillaankin kohtalaiset Python-taidot tarkoittavat että viikoilta 3-4 pistesaldo jää hyvin vajaaksi, mm. yhdistelmätaulu puuttuu, meemien lisäys ja meemitaulu ovat vaiheessa, ulkoasun viilaus on tekemättä ja yleisesti sovellus on tarpeettoman paljon materiaalia mukaileva.
+Allekirjoittaneen loistavat prokrastinaatiotaidot ja parhaimmillaankin kohtalaiset Python-taidot tarkoittavat että viikoilta 3-4 pistesaldo jää hyvin vajaaksi, mm. yhdistelmätaulu puuttuu, meemien lisäys ja meemitaulu ovat vaiheessa, ulkoasun viilaus on tekemättä ja yleisesti sovellus on tarpeettoman paljon materiaalia mukaileva. Ensi deadlineen varustauduttava paremmalla ajalla.
 
 * Testikäyttäjätunnukset Herokussa u: test p: user
 
