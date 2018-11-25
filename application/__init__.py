@@ -1,11 +1,17 @@
+# os import
+import os
+
 # flask app
 from flask import Flask
 app = Flask(__name__)
 
+# flask-uploads
+from flask_uploads import configure_uploads, UploadConfiguration, patch_request_class
+patch_request_class(app, 4000000) #set maximum filesize to 4 MiB
+UploadConfiguration('/memes/images') #set default file upload folder
+
 # local database stuff
 from flask_sqlalchemy import SQLAlchemy
-
-import os
 
 # database switch depending on heroku/local
 if os.environ.get("HEROKU"):

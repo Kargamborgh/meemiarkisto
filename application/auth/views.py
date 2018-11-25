@@ -27,8 +27,6 @@ def auth_logout():
     logout_user()
     return redirect(url_for("index"))
 
-# registration route, blatant copy of login route
-
 @app.route("/auth/register", methods = ["GET", "POST"])
 def auth_register():
     if request.method == "GET":
@@ -37,13 +35,11 @@ def auth_register():
     form = RegisterForm()
 
     # WTForms validators in auth/forms.py
-    if form.validate_on_submit():
-        u = User(name=form.name.data,
+    u = User(name=form.name.data,
                  username=form.username.data,
                  password=form.password.data)
 
-        db.session().add(u)
-        db.session().commit()
+    db.session().add(u)
+    db.session().commit()
 
-        return redirect(url_for("auth_login"))
-    return render_template('auth/registerform.html', title="Register", form=form)
+    return redirect(url_for("auth_login"))
