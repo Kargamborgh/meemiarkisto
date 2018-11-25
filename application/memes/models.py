@@ -9,6 +9,7 @@ class Meme(db.Model):
 
     title = db.Column(db.String(144), nullable=False)
     points = db.Column(db.Integer, nullable=False)
+    #image = db.Column(db.LargeBinary) <-- this currently fucks everything up, commented out for now
 
     def __init__(self, title):
         self.title = title
