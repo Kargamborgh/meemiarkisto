@@ -8,16 +8,23 @@ from application.memes.forms import MemeForm
 
 from sqlalchemy import text
 
-# flask upload config
+# by definition all memes are public and visible to all users
 
 @app.route("/memes", methods=["GET"])
 def memes_index():
     return render_template("memes/list.html", memes = Meme.query.all())
 
+@app.route("/memes/<meme_id>", methods=["GET"])
+def meme_view(meme_id):
+    return render_template("memes/view.html", meme = Meme.query.get(meme_id))
+
 @app.route("/memes/new/")
 @login_required(role="ANY")
 def memes_form():
     return render_template("memes/new.html", form = MemeForm())
+
+# TODO rework upvote/downvote to return a redirect to current path
+# as opposed to throwing user back to memes_index
 
 @app.route("/memes/upvote/<meme_id>/", methods=["POST"])
 @login_required(role="ANY")

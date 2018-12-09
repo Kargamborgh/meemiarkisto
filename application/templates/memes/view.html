@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div>
+    <table>
+        <img src=" {{ meme.url }} ">
+        <tr>
+          <th>Meme</th>
+          <th>Score</th>
+          <th>Author</th>
+        </tr>
+        <tr>
+          <td>{{ meme.title }}</td>
+          <td>{{ meme.points }}</td>
+          <td>{{ meme.account_id }}</td>
+          <td>
+              <form method="POST" action="{{ url_for('memes_increase_score', meme_id=meme.id) }}">
+                  <input type="submit" value="Upvote"/>
+              </form>
+          </td>
+          <td>
+              <form method="POST" action="{{ url_for('memes_decrease_score', meme_id=meme.id) }}">
+                  <input type="submit" value="Downvote"/>
+              </form>
+          </td>
+          <td>
+              <form method="POST" action="{{ url_for('memes_delete', meme_id=meme.id) }}">
+                  <input type="submit" value="Delete"/>
+              </form>
+          </td>
+        </tr>
+
+    </table>
+</div>
+{% endblock %}
