@@ -1,10 +1,12 @@
 import os
-from application import app, db, images
+from application import app, db, images, login_required
 from flask import flash, redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 from flask_uploads import configure_uploads, UploadSet, patch_request_class
 from application.memes.models import Meme
 from application.memes.forms import MemeForm
+
+from sqlalchemy import text
 
 # flask upload config
 
@@ -13,12 +15,12 @@ def memes_index():
     return render_template("memes/list.html", memes = Meme.query.all())
 
 @app.route("/memes/new/")
-@login_required
+@login_required(role="ANY")
 def memes_form():
     return render_template("memes/new.html", form = MemeForm())
 
 @app.route("/memes/<meme_id>/", methods=["POST"])
-@login_required
+@login_required(role="ANY")
 def memes_increase_score(meme_id):
 
     m = Meme.query.get(meme_id)
@@ -35,8 +37,17 @@ def memes_decrease_score(meme_id):
 
    return redirect(url_for("memes_index"))
 
+@app.route("/memes/delete/<meme_id>/", methods=["POST"])
+@login_required(role="ANY")
+def memes_delete(meme_id):
+    statement = text("DELETE FROM meme WHERE id = :id").params(id=meme_id)
+    db.engine.execute(statement)
+    db.session().commit()
+
+    return redirect(url_for("memes_index"))
+
 @app.route("/memes/", methods=["POST"])
-@login_required
+@login_required(role="ANY")
 def memes_create():
     form = MemeForm()
 
@@ -56,5 +67,3 @@ def memes_create():
     else:
         flash('error: meme not added', 'error')
         return render_template('memes/new.html', form=form)
-
-#filename=filename, title=form.title.data, points=0, date_created=db.func.current_timestamp()
