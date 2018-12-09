@@ -5,6 +5,7 @@ from flask_login import current_user
 from flask_uploads import configure_uploads, UploadSet, patch_request_class
 from application.memes.models import Meme
 from application.memes.forms import MemeForm
+from application.auth.models import User
 
 from sqlalchemy import text
 
@@ -14,9 +15,11 @@ from sqlalchemy import text
 def memes_index():
     return render_template("memes/list.html", memes = Meme.query.all())
 
+# join meme & user tables to display author in single meme view
 @app.route("/memes/<meme_id>", methods=["GET"])
 def meme_view(meme_id):
-    return render_template("memes/view.html", meme = Meme.query.get(meme_id))
+    meme_with_user = db.session.query(Meme, User).join(User).filter(Meme.id == meme_id).first()
+    return render_template("memes/view.html", meme = meme_with_user)
 
 @app.route("/memes/new/")
 @login_required(role="ANY")

@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
-
+<!-- since the query joins Meme and User into meme, use meme.<table> to get values -->
 {% block body %}
 <div>
     <table>
-        <img src=" {{ meme.url }} ">
+        <img src=" {{ meme.Meme.url }} ">
         <tr>
           <th>Meme</th>
           <th>Score</th>
           <th>Author</th>
         </tr>
         <tr>
-          <td>{{ meme.title }}</td>
-          <td>{{ meme.points }}</td>
-          <td>{{ meme.account_id }}</td>
+          <td>{{ meme.Meme.title }}</td>
+          <td>{{ meme.Meme.points }}</td>
+          <td>{{ meme.User.username }}</td>
           <td>
               <form method="POST" action="{{ url_for('memes_increase_score', meme_id=meme.id) }}">
                   <input type="submit" value="Upvote"/>
