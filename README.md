@@ -1,5 +1,7 @@
 # HY tsoha 2018: henkilökohtaisen meemiarkiston modernisointi, nk. meemiarkisto
 
+## Sovellus ei tällä hetkellä toimi Herokussa. Asennusohjeet testaamista varten alempana.
+
 https://tsoha-python-meemiarkisto.herokuapp.com
 
 Projekti käyttää kuvamateriaalina omaa henkilökohtaista meemiarkistoa.
@@ -15,20 +17,26 @@ Suunniteltuja käyttötapauksia:
 
 * Käyttäjäkohtainen kirjautuminen
 
-* Käyttäjillä on upvote/downvote-historia ja kommenttihistoria
+* ~~Käyttäjillä on upvote/downvote-historia ja kommenttihistoria~~
 
 * Erillinen admin-käyttäjä, joka voi moderoida käyttäjien kommentteja ja bannata käyttäjiä
 
-Tällä hetkellä toimivia käyttötapauksia (vko4):
+* Meemin yhteenvetosivu, joka näyttää kuvan, pisteet, kommentit ja käyttäjän (yhteenvetokysely tauluista Meme, User, Comment)
 
-* Käyttäjä voi rekisteröityä
+Tarkempi käyttötapauksien status löytyy User stories-osiosta.
 
-* Käyttäjä voi kirjautua
+## Asennusohjeet lokaalia testaamista varten:
 
-Allekirjoittaneen loistavat prokrastinaatiotaidot ja parhaimmillaankin kohtalaiset Python-taidot tarkoittavat että viikoilta 3-4 pistesaldo jää hyvin vajaaksi, mm. yhdistelmätaulu puuttuu, meemien lisäys ja meemitaulu ovat vaiheessa, ulkoasun viilaus on tekemättä ja yleisesti sovellus on tarpeettoman paljon materiaalia mukaileva. Ensi deadlineen varustauduttava paremmalla ajalla.
-
-* Testikäyttäjätunnukset Herokussa u: test p: user
+* Kloonaa Git-repositorio git@github.com:Kargamborgh/meemiarkisto.git
+* Olettaen että käytössäsi on Python3 ja pip, asenna pip-vaatimukset (pip install -r requirements.txt)
+* Käynnistä virtuaaliympäristö (source venv/bin/activate, Windows-ympäristössä "source venv/Scripts/activate)
+* Käynnistä sovellus (python run.py)
+* Sovellus toimii oletuksena osoitteessa http://localhost:5000
 
 [Tietokantakaavion hahmotelma vko2](https://github.com/Kargamborgh/meemiarkisto/blob/master/documentation/db_sketch_wk2.jpg)
+
 [Tietokantakaavion hahmotelma vko4](https://github.com/Kargamborgh/meemiarkisto/blob/master/documentation/db_sketch_wk4.jpg)
+
+[Tietokantakaavion hahmotelma vko6](https://github.com/Kargamborgh/meemiarkisto/blob/master/documentation/db_sketch_wk6.jpg)
+
 [User stories](https://github.com/Kargamborgh/meemiarkisto/blob/master/documentation/user_stories.md)
