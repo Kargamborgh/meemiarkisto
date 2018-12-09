@@ -1,18 +1,14 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.auth.models import User
 from application.memes.models import Meme
+from application.comments.forms import CommentForm
 
-# running out of time thanks to excellent procrastinating skills
-# to be implemented later
-
-# comments can be submitted on individual meme entries
-# comments cannot be modified, only deleted
-# comments can only be submitted by logged in users
+# only a dummy new comment form
 
 @app.route("/comments/new/")
-@login_required
+@login_required(role="ANY")
 def comments_form():
     return render_template("comments/new.html", form = CommentForm())

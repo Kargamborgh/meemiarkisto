@@ -11,4 +11,9 @@ class Comment(Base):
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
 
     # a comment is written on any single meme entry
-    memes = db.Column(db.Integer, db.ForeignKey("meme.id"), nullable=False)
+    meme = db.Column(db.Integer, db.ForeignKey('meme.id'), nullable=False)
+
+    def __init__(self, text, account_id, meme):
+        self.text = text
+        self.account_id = account_id
+        self.meme = meme
