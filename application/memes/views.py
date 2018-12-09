@@ -19,7 +19,7 @@ def memes_index():
 def memes_form():
     return render_template("memes/new.html", form = MemeForm())
 
-@app.route("/memes/<meme_id>/", methods=["POST"])
+@app.route("/memes/upvote/<meme_id>/", methods=["POST"])
 @login_required(role="ANY")
 def memes_increase_score(meme_id):
 
@@ -29,6 +29,8 @@ def memes_increase_score(meme_id):
 
     return redirect(url_for("memes_index"))
 
+@app.route("/memes/downvote/<meme_id>/", methods=["POST"])
+@login_required(role="ANY")
 def memes_decrease_score(meme_id):
 
    m = Meme.query.get(meme_id)

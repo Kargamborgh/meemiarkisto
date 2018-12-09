@@ -19,11 +19,15 @@
           </form>
       </td>
       <td>
+          <form method="POST" action="{{ url_for('memes_decrease_score', meme_id=meme.id) }}">
+              <input type="submit" value="Downvote"/>
+          </form>
+      </td>
+      <td>
           <form method="POST" action="{{ url_for('memes_delete', meme_id=meme.id) }}">
               <input type="submit" value="Delete"/>
           </form>
       </td>
-      <!-- implement decrease_score next week -->
     </tr>
     {% endfor %}
   </table>
