@@ -1,11 +1,13 @@
 import os
+from flask_login import current_user, login_required
 from application import app, db, images, login_required
 from flask import flash, redirect, render_template, request, url_for
-from flask_login import current_user
 from flask_uploads import configure_uploads, UploadSet, patch_request_class
 from application.memes.models import Meme
 from application.memes.forms import MemeForm
 from application.auth.models import User
+from application.comments.models import Comment
+from application.comments.forms import CommentForm
 
 from sqlalchemy import text
 
@@ -19,7 +21,7 @@ def memes_index():
 @app.route("/memes/<meme_id>", methods=["GET"])
 def meme_view(meme_id):
     meme_with_user = db.session.query(Meme, User).join(User).filter(Meme.id == meme_id).first()
-    return render_template("memes/view.html", meme = meme_with_user)
+    return render_template("memes/view.html", meme = meme_with_user, form=CommentForm())
 
 @app.route("/memes/new/")
 @login_required(role="ANY")
@@ -49,6 +51,8 @@ def memes_decrease_score(meme_id):
 
    return redirect(url_for("memes_index"))
 
+# delete a meme from the database
+
 @app.route("/memes/delete/<meme_id>/", methods=["POST"])
 @login_required(role="ANY")
 def memes_delete(meme_id):
@@ -58,6 +62,8 @@ def memes_delete(meme_id):
 
     return redirect(url_for("memes_index"))
 
+# add a new meme, including an image
+
 @app.route("/memes/", methods=["POST"])
 @login_required(role="ANY")
 def memes_create():
@@ -65,7 +71,6 @@ def memes_create():
 
     # handle image upload here
     if form.validate_on_submit():
-        print('conels')
         filename = images.save(request.files['image'])
         url = images.url(filename)
         m = Meme(form.title.data, 0, filename, url, current_user.id)
@@ -79,3 +84,17 @@ def memes_create():
     else:
         flash('error: meme not added', 'error')
         return render_template('memes/new.html', form=form)
+
+# add a comment to a meme, maybe this is easier here than at comments/views
+
+@app.route("/memes/comment", methods=["POST"])
+@login_required(role="ANY")
+def memes_comment(meme_id):
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        c = Comment(form.text.data, current_user.id, meme_id)
+        db.session.add(c)
+        db.session().commit()
+
+        return redirect(url_for("memes_index"))

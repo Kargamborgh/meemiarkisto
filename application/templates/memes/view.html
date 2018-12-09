@@ -5,7 +5,7 @@
     <table>
         <img src=" {{ meme.Meme.url }} ">
         <tr>
-          <th>Meme</th>
+          <th>Title</th>
           <th>Score</th>
           <th>Author</th>
         </tr>
@@ -14,19 +14,28 @@
           <td>{{ meme.Meme.points }}</td>
           <td>{{ meme.User.username }}</td>
           <td>
-              <form method="POST" action="{{ url_for('memes_increase_score', meme_id=meme.id) }}">
+              <form method="POST" action="{{ url_for('memes_increase_score', meme_id=meme.Meme.id) }}">
                   <input type="submit" value="Upvote"/>
               </form>
           </td>
           <td>
-              <form method="POST" action="{{ url_for('memes_decrease_score', meme_id=meme.id) }}">
+              <form method="POST" action="{{ url_for('memes_decrease_score', meme_id=meme.Meme.id) }}">
                   <input type="submit" value="Downvote"/>
               </form>
           </td>
           <td>
-              <form method="POST" action="{{ url_for('memes_delete', meme_id=meme.id) }}">
+              <form method="POST" action="{{ url_for('memes_delete', meme_id=meme.Meme.id) }}">
                   <input type="submit" value="Delete"/>
               </form>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ form.text.label }}</td>
+          <td>{{ form.text }}</td>
+          <td>
+            <form method="POST" action=" {{ url_for('memes_comment', meme_id=meme.Meme.id) }}">
+                <input type="submit" value="Submit comment">
+            </form>
           </td>
         </tr>
 
