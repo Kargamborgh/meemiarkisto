@@ -19,8 +19,12 @@ db = SQLAlchemy(app)
 
 # flask-uploads configuration
 from flask_uploads import configure_uploads, UploadSet, patch_request_class, IMAGES
-app.config['UPLOADED_IMAGES_DEST'] = '/static/images'
-app.config['UPLOADS_DEFAULT_URL'] = 'http://localhost:5000/static/images/'
+if os.environ.get("HEROKU"):
+    app.config['UPLOADED_IMAGES_DEST'] = '/_uploads/images'
+    app.config['UPLOADS_DEFAULT_URL'] = 'https://tsoha-python-meemiarkisto.herokuapp.com/_uploads/images/'
+else:
+    app.config['UPLOADED_IMAGES_DEST'] = '/_uploads/images'
+    app.config['UPLOADS_DEFAULT_URL'] = 'http://localhost:5000/_uploads/images/'
 images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
 patch_request_class(app, 2 * 1024 * 1024 ) #set maximum filesize to 2 megabytes
