@@ -15,8 +15,8 @@ class User(Base):
     password = db.Column(db.String(144), nullable=False)
     #password_hash = db.Column(db.String(128)) this will be implemented later
 
-    meme_id = db.relationship("Meme", backref='account', lazy=True)
-    # comment table breaks things because of emptiness and relationships, commented out
+    meme = db.relationship("Meme", backref='account', lazy=True)
+    # comment table breaks things because of emptiness and relationships, commented out for now
     # comment_id = db.relationship("Comment", backref='comment', lazy=True)
 
     def __init__(self, name, username, password):

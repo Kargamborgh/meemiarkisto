@@ -1,14 +1,12 @@
 import os
-from application import app, db
+from application import app, db, images
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import login_required, current_user
-from flask_uploads import configure_uploads, UploadSet, UploadConfiguration
+from flask_uploads import configure_uploads, UploadSet, patch_request_class
 from application.memes.models import Meme
 from application.memes.forms import MemeForm
-from application.auth.models import User
 
-# config for file upload
-images = UploadSet('images', extensions=('jpg','jpeg','png'),)
+# flask upload config
 
 @app.route("/memes", methods=["GET"])
 def memes_index():
@@ -37,26 +35,26 @@ def memes_decrease_score(meme_id):
 
    return redirect(url_for("memes_index"))
 
-# this image upload is tricky, still broken
 @app.route("/memes/", methods=["POST"])
 @login_required
 def memes_create():
-    form = MemeForm(request.form)
-    if 'image' in request.files:
+    form = MemeForm()
+
+    # handle image upload here
+    if form.validate_on_submit():
+        print('conels')
         filename = images.save(request.files['image'])
-        rec = image(filename=filename, user=current_user.id)
-        rec.store()
+        url = images.url(filename)
+        m = Meme(form.title.data, 0, filename, url, current_user.id)
+
+        # else: save image and meme details to database
+        db.session().add(m)
+        db.session().commit()
         flash("Image saved.")
-        return redirect(url_for("memes_index", id=rec.id))
-    return render_template('memes/new.html')
 
-    if not form.validate():
-        return render_template("memes/new.html", form = form)
+        return redirect(url_for("memes_index"))
+    else:
+        flash('error: meme not added', 'error')
+        return render_template('memes/new.html', form=form)
 
-    m = Meme(title=form.title.data, points=0, date_created=db.func.current_timestamp())
-    m.account_id = current_user.id
-
-    db.session().add(m)
-    db.session().commit()
-  
-    return redirect(url_for("memes_index"))
+#filename=filename, title=form.title.data, points=0, date_created=db.func.current_timestamp()

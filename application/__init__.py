@@ -1,14 +1,9 @@
-# os import
+# imports
 import os
 
 # flask app
 from flask import Flask
 app = Flask(__name__)
-
-# flask-uploads
-from flask_uploads import configure_uploads, UploadConfiguration, patch_request_class
-patch_request_class(app, 4000000) #set maximum filesize to 4 MiB
-UploadConfiguration('/memes/images') #set default file upload folder
 
 # local database stuff
 from flask_sqlalchemy import SQLAlchemy
@@ -21,6 +16,14 @@ else:
     app.config["SQLALCHEMY_ECHO"] = True
 
 db = SQLAlchemy(app)
+
+# flask-uploads
+from flask_uploads import configure_uploads, UploadSet, patch_request_class, IMAGES
+app.config['UPLOADED_IMAGES_DEST'] = '/static/images'
+app.config['UPLOADS_DEFAULT_URL'] = 'http://localhost:5000/static/images/'
+images = UploadSet('images', IMAGES)
+configure_uploads(app, images)
+patch_request_class(app, 2 * 1024 * 1024 ) #set maximum filesize to 2 megabytes
 
 # application functionality
 from application import views
