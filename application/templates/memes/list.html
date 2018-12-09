@@ -1,34 +1,18 @@
 {% extends "layout.html" %}
 
+<!-- show images in rows of 4 through columns -->
+
 {% block body %}
-  <table>
-    <tr>
-      <th>Meme</th>
-      <th>Points</th>
-    </tr>
+
+<div class="row">
     {% for meme in memes %}
-    <tr>
-      <td>{{ meme.title }}</td>
-      <td>{{ meme.points }}</td>
-      <td>
-        <img src=" {{ meme.url }}" style="width:400px;height:400px;">
-      </td>
-      <td>
-          <form method="POST" action="{{ url_for('memes_increase_score', meme_id=meme.id) }}">
-              <input type="submit" value="Upvote"/>
-          </form>
-      </td>
-      <td>
-          <form method="POST" action="{{ url_for('memes_decrease_score', meme_id=meme.id) }}">
-              <input type="submit" value="Downvote"/>
-          </form>
-      </td>
-      <td>
-          <form method="POST" action="{{ url_for('memes_delete', meme_id=meme.id) }}">
-              <input type="submit" value="Delete"/>
-          </form>
-      </td>
-    </tr>
+    <div class="col-md-3">
+        <img src="{{ meme.url }}" height="250" width="250" href="{{ url_for('meme_view', meme_id=meme.id) }}">
+        <form method="GET" action="{{ url_for('meme_view', meme_id=meme.id) }}">
+            <input type="submit" value="view"/>
+        </form>
+    </div>
+
     {% endfor %}
-  </table>
+  </div>
 {% endblock %}
