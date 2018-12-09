@@ -7,6 +7,9 @@ class LoginForm(FlaskForm):
     username = StringField("Username")
     password = PasswordField("Password")
 
+    class Meta:
+        csrf = False
+
 class RegisterForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     username = StringField("Username", validators=[DataRequired()])
@@ -18,3 +21,6 @@ class RegisterForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Username is taken, choose another one')
+
+    class Meta:
+        csrf = False
