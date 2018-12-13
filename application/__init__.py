@@ -19,15 +19,19 @@ db = SQLAlchemy(app)
 
 # flask-uploads configuration
 from flask_uploads import configure_uploads, UploadSet, patch_request_class, IMAGES
-if os.environ.get("HEROKU"):
-    app.config['UPLOADED_IMAGES_DEST'] = '/_uploads/images'
-    app.config['UPLOADS_DEFAULT_URL'] = 'https://tsoha-python-meemiarkisto.herokuapp.com/_uploads/images/'
-else:
-    app.config['UPLOADED_IMAGES_DEST'] = '/_uploads/images'
-    app.config['UPLOADS_DEFAULT_URL'] = 'http://localhost:5000/_uploads/images/'
+app.config['UPLOADED_IMAGES_DEST'] = '/tmp/images'
+app.config['UPLOADS_DEFAULT_URL'] = 'http://localhost:5000/tmp/images/'
 images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
 patch_request_class(app, 2 * 1024 * 1024 ) #set maximum filesize to 2 megabytes
+
+# S3 uploads stuff
+
+S3_BUCKET = os.environ.get("S3_BUCKET_NAME")
+S3_KEY = os.environ.get("AWS_ACCESS_KEY_ID")
+S3_SECRET = os.environ.get("AWS_SECRET_ACCESS_KEY")
+S3_LOCATION = 'http://{}.s3.amazonaws.com/'.format(S3_BUCKET)
+
 
 # login stuff
 

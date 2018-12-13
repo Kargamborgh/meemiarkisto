@@ -8,6 +8,7 @@ from application.memes.forms import MemeForm
 from application.auth.models import User
 from application.comments.models import Comment
 from application.comments.forms import CommentForm
+from helpers import s3
 
 from sqlalchemy import text
 
@@ -84,6 +85,21 @@ def memes_create():
     else:
         flash('error: meme not added', 'error')
         return render_template('memes/new.html', form=form)
+
+# AWS S3 bucket upload method
+
+def upload_file_to_s3(file, bucket_name, acl="public-read"):
+
+        s3.upload_fileobj(
+                file,
+                bucket_name,
+                file.filename,
+                ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+                }
+        )
+        return "{}{}".format(app.config["S3_LOCATION"], file.filename)
 
 # add a comment to a meme, maybe this is easier here than at comments/views
 
