@@ -17,14 +17,6 @@ else:
 
 db = SQLAlchemy(app)
 
-# flask-uploads configuration
-from flask_uploads import configure_uploads, UploadSet, patch_request_class, IMAGES
-app.config['UPLOADED_IMAGES_DEST'] = '/tmp/images'
-app.config['UPLOADS_DEFAULT_URL'] = 'http://localhost:5000/tmp/images/'
-images = UploadSet('images', IMAGES)
-configure_uploads(app, images)
-patch_request_class(app, 2 * 1024 * 1024 ) #set maximum filesize to 2 megabytes
-
 # S3 uploads stuff
 
 S3_BUCKET = os.environ.get("S3_BUCKET_NAME")

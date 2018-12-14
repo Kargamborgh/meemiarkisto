@@ -1,6 +1,6 @@
 import os
 from flask_login import current_user, login_required
-from application import app, db, images, login_required
+from application import app, db, login_required
 from flask import flash, redirect, render_template, request, url_for
 from flask_uploads import configure_uploads, UploadSet, patch_request_class
 from application.memes.models import Meme
@@ -63,30 +63,8 @@ def memes_delete(meme_id):
 
     return redirect(url_for("memes_index"))
 
-# add a new meme, including an image
-
-@app.route("/memes/", methods=["POST"])
-@login_required(role="ANY")
-def memes_create():
-    form = MemeForm()
-
-    # handle image upload here
-    if form.validate_on_submit():
-        filename = images.save(request.files['image'])
-        url = images.url(filename)
-        m = Meme(form.title.data, 0, filename, url, current_user.id)
-
-        # else: save image and meme details to database
-        db.session().add(m)
-        db.session().commit()
-        flash("Image saved.")
-
-        return redirect(url_for("memes_index"))
-    else:
-        flash('error: meme not added', 'error')
-        return render_template('memes/new.html', form=form)
-
-# AWS S3 bucket upload method
+# AWS S3 bucket upload method, used in memes_create() below
+# returns URL for uploaded image
 
 def upload_file_to_s3(file, bucket_name, acl="public-read"):
 
@@ -99,7 +77,24 @@ def upload_file_to_s3(file, bucket_name, acl="public-read"):
                 "ContentType": file.content_type
                 }
         )
-        return "{}{}".format(app.config["S3_LOCATION"], file.filename)
+        return "https://s3.eu-north-1.amazonaws.com/meemiarkistobucket/{}".format(file.filename)
+
+# add a new meme, including an image
+
+@app.route("/memes/", methods=["POST"])
+@login_required(role="ANY")
+def memes_create():
+    form = MemeForm()
+
+    if form.validate_on_submit():
+        file = request.files["image"] # get image file from request
+        url = upload_file_to_s3(file, "meemiarkistobucket") # use method above to upload
+        meme = Meme(form.title.data, 0, file.filename, url, current_user.id) # add meme details to database
+
+        db.session().add(meme)
+        db.session().commit()
+
+    return redirect(url_for("memes_index"))
 
 # add a comment to a meme, maybe this is easier here than at comments/views
 
