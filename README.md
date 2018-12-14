@@ -1,7 +1,5 @@
 # HY tsoha 2018: henkilökohtaisen meemiarkiston modernisointi, nk. meemiarkisto
 
-## Sovellus ei tällä hetkellä toimi Herokussa. Asennusohjeet testaamista varten alempana.
-
 https://tsoha-python-meemiarkisto.herokuapp.com
 
 Projekti käyttää kuvamateriaalina omaa henkilökohtaista meemiarkistoa.

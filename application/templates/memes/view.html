@@ -11,7 +11,7 @@
     <div class="break-sm"></div>
     <div class="row">
         <div class="col-sm">Score: {{ meme.Meme.points }}</div>
-        <div class="col-sm">Author: {{ meme.User.username }}</div>
+        <div class="col-sm">Author: {{ meme.User.name }}</div>
         <div class="col-sm">
             <form method="POST" action="{{ url_for('memes_increase_score', meme_id=meme.Meme.id) }}">
                 <input type="submit" value="Upvote"/>
