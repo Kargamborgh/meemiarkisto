@@ -36,7 +36,7 @@
             Author
         </div>
     </div>
-        {% for comment in g.meme_comments %}
+        {% for comment in session.meme_comments %}
         <div class="row">
             <div class="col-sm">{{ comment.text }}</div>
         </div>

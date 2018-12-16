@@ -1,7 +1,7 @@
 import os
 from flask_login import current_user, login_required
 from application import app, db, login_required
-from flask import flash, redirect, render_template, request, url_for, g
+from flask import flash, redirect, render_template, request, url_for, session
 from flask_uploads import configure_uploads, UploadSet, patch_request_class
 from application.memes.models import Meme
 from application.memes.forms import MemeForm
@@ -26,7 +26,7 @@ def meme_view(meme_id):
 # make meme_comments in global context to enable easy printing in meme view
 # comments are anonymous but most prolific commenters are visible in index.html
 
-    g.meme_comments = db.session.query(Comment.text).filter(Comment.meme_id == meme_id)
+    session.meme_comments = db.session.query(Comment.text).filter(Comment.meme_id == meme_id)
     
     meme_with_user_and_comments = db.session.query(Meme, User, Comment).join(User, Comment).filter(Meme.id == meme_id).first()
     
