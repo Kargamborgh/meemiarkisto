@@ -1,5 +1,7 @@
 # User stories final
 
+## NOTE: If you try to access certain functionalities that require login the application will crash. Please log in first.
+
 * As a user, I want to be able to register
 
 * As a user, I want to be able to login
@@ -15,5 +17,3 @@
 * As a logged in user, I want to delete memes
 
 * As a logged in user, I want to comment on memes
-
-
