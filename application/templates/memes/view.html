@@ -36,10 +36,9 @@
             Author
         </div>
     </div>
-        {% for comment in comments %}
+        {% for comment in g.meme_comments %}
         <div class="row">
-            <div class="col-sm">{{ meme.Comment.text }}</div>
-            <div class="col-sm">{{ meme.Comment.account_id }}</div>
+            <div class="col-sm">{{ comment.text }}</div>
         </div>
         {% endfor %}
     <div class="row">

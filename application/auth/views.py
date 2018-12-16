@@ -21,8 +21,8 @@ def auth_login():
 
 
     login_user(user)
-    session["most_memes"] = Meme.find_most_memes_user()
-    session["most_comments"] = Meme.find_most_comments_user()
+    #session["most_memes"] = Meme.find_most_memes_user()
+    #session["most_comments"] = Meme.find_most_comments_user()
     return redirect(url_for("index"))
 
 @app.route("/auth/logout")

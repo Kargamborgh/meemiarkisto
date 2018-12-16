@@ -1,7 +1,7 @@
 import os
 from flask_login import current_user, login_required
 from application import app, db, login_required
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for, g
 from flask_uploads import configure_uploads, UploadSet, patch_request_class
 from application.memes.models import Meme
 from application.memes.forms import MemeForm
@@ -19,9 +19,16 @@ def memes_index():
     return render_template("memes/list.html", memes = Meme.query.all())
 
 # join meme & user tables to display author in single meme view
+# also join meme and comment tables to print relevant comments in meme view
 @app.route("/memes/<meme_id>", methods=["GET"])
 def meme_view(meme_id):
     meme_with_user_and_comments = db.session.query(Meme, User, Comment).join(User, Comment).filter(Meme.id == meme_id).first()
+
+# make meme_comments in global context to enable easy printing in meme view
+# comments are anonymous but most prolific commenters are visible in index.html
+
+    g.meme_comments = db.session.query(Comment.text).filter(Comment.meme_id == meme_id)
+    
     return render_template("memes/view.html", meme = meme_with_user_and_comments, form=CommentForm())
 
 @app.route("/memes/new/")

@@ -8,22 +8,25 @@
   Have a witty picture you want to show the world? Look no further, upload it and paste the link!
 </p>
 <p>
+  To see the statistics below, please log in. Statistics are refreshed on every login.
+</p>
+<p>
   The users with most submitted memes:
 </p>
 <ol>
   {% for most_memes_user in session["most_memes"] %}
   <li>
-    {{ most_memes_user.username }}&nbsp;{{ most_memes_user.amount }}
+    User: {{ most_memes_user.username }}&nbsp;Memes: {{ most_memes_user.amount }}
   </li>
   {% endfor %}
 </ol>
 <p>
-  Most commented memes:
+  Most comments left by user:
 </p>
 <ol>
   {% for most_comments_user in session["most_comments"] %}
   <li>
-    {{ most_comments_user.username }}&nbsp;{{ most_comments_user.comments }}
+    User: {{ most_comments_user.username }}&nbsp;Comments: {{ most_comments_user.comments }}
   </li>
   {% endfor %}
 </ol>
