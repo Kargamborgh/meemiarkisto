@@ -22,12 +22,13 @@ def memes_index():
 # also join meme and comment tables to print relevant comments in meme view
 @app.route("/memes/<meme_id>", methods=["GET"])
 def meme_view(meme_id):
-    meme_with_user_and_comments = db.session.query(Meme, User, Comment).join(User, Comment).filter(Meme.id == meme_id).first()
 
 # make meme_comments in global context to enable easy printing in meme view
 # comments are anonymous but most prolific commenters are visible in index.html
 
     g.meme_comments = db.session.query(Comment.text).filter(Comment.meme_id == meme_id)
+    
+    meme_with_user_and_comments = db.session.query(Meme, User, Comment).join(User, Comment).filter(Meme.id == meme_id).first()
     
     return render_template("memes/view.html", meme = meme_with_user_and_comments, form=CommentForm())
 
