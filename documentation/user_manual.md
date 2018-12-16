@@ -4,6 +4,8 @@ Here are instructions on how to use the imagehosting site clone Meemiarkisto.
 
 The url for the application is https://tsoha-python-meemiarkisto.herokuapp.com/
 
+A test account has been created with username: test and password: user
+
 To register an account, click the Register link in the top right of the navbar. After registering, you will be redirected to the login page.
 
 To log in, click on the Log in link in the top right of the navbar.
