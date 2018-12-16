@@ -36,8 +36,8 @@ def memes_form():
 @login_required(role="ANY")
 def memes_increase_score(meme_id):
 
-    m = Meme.query.get(meme_id)
-    m.points = m.points+1
+    meme = Meme.query.get(meme_id)
+    meme.points = meme.points+1
     db.session().commit()
 
     return redirect(url_for("memes_index"))
@@ -46,8 +46,8 @@ def memes_increase_score(meme_id):
 @login_required(role="ANY")
 def memes_decrease_score(meme_id):
 
-   m = Meme.query.get(meme_id)
-   m.points = m.points-1
+   meme = Meme.query.get(meme_id)
+   meme.points = meme.points-1
    db.session().commit()
 
    return redirect(url_for("memes_index"))
@@ -98,14 +98,16 @@ def memes_create():
 
 # add a comment to a meme, maybe this is easier here than at comments/views
 
-@app.route("/memes/comment", methods=["POST"])
+@app.route("/memes/comment/<meme_id>/", methods=["POST"])
 @login_required(role="ANY")
 def memes_comment(meme_id):
     form = CommentForm()
+    meme = Meme.query.get(meme_id)
 
     if form.validate_on_submit():
-        c = Comment(form.text.data, current_user.id, meme_id)
-        db.session.add(c)
+        comment = Comment(form.text.data, current_user.id, meme.id)
+        
+        db.session.add(comment)
         db.session().commit()
-
+        
         return redirect(url_for("memes_index"))
