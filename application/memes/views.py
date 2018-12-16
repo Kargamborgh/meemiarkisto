@@ -107,7 +107,7 @@ def memes_comment(meme_id):
     if form.validate_on_submit():
         comment = Comment(form.text.data, current_user.id, meme.id)
         
-        db.session.add(comment)
+        db.session().add(comment)
         db.session().commit()
         
-        return redirect(url_for("memes_index"))
+    return redirect(url_for("memes_index"))
