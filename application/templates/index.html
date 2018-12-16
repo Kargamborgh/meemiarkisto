@@ -2,12 +2,19 @@
 
 {% block body %}
 <p>
-  Meme database, for all your memestely needs!
+  Meme database, for all your memestely needs! Log in to use all functionalities.
 </p>
 <p>
   Have a witty picture you want to show the world? Look no further, upload it and paste the link!
 </p>
 <p>
-  Please note that the service is under construction and functionality is limited at this time.
+  The users with most submitted memes:
 </p>
+<ol>
+  {% for user in most_memes %}
+  <li>
+    {{ user.username }}&nbsp;{{ user.amount }}
+  </li>
+  {% endfor %}
+</ol>
 {% endblock %}

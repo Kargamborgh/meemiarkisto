@@ -16,4 +16,4 @@ class Comment(Base):
     def __init__(self, text, account_id, meme_id):
         self.text = text
         self.account_id = account_id
-        self.meme = meme_id
+        self.meme_id = meme_id

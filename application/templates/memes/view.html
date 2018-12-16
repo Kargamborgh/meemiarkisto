@@ -12,22 +12,40 @@
     <div class="row">
         <div class="col-sm">Score: {{ meme.Meme.points }}</div>
         <div class="col-sm">Author: {{ meme.User.name }}</div>
-        <div class="col-sm">
+        <div class="col-sm-1">
             <form method="POST" action="{{ url_for('memes_increase_score', meme_id=meme.Meme.id) }}">
                 <input type="submit" value="Upvote"/>
             </form>
+        </div>
+        <div class="col-sm-1">
             <form method="POST" action="{{ url_for('memes_decrease_score', meme_id=meme.Meme.id) }}">
                 <input type="submit" value="Downvote"/>
             </form>
+        </div>
+        <div class="col-sm-1">
             <form method="POST" action="{{ url_for('memes_delete', meme_id=meme.Meme.id) }}">
                 <input type="submit" value="Delete"/>
             </form>
         </div>
     </div>
     <div class="row">
-        <p>{{ form.text.label }}</p>&nbsp;
-        <p>{{ form.text }}</p>&nbsp;
+        <div class="col-sm">
+            Comment
+        </div>
+        <div class="col-sm">
+            Author
+        </div>
+    </div>
+        {% for comment in comments %}
+        <div class="row">
+            <div class="col-sm">{{ meme.Comment.text }}</div>
+            <div class="col-sm">{{ meme.Comment.account_id }}</div>
+        </div>
+        {% endfor %}
+    <div class="row">
         <form method="POST" action=" {{ url_for('memes_comment', meme_id=meme.Meme.id) }}">
+            <a>{{ form.text.label }}</a>&nbsp;
+            <a>{{ form.text }}</a>&nbsp;
             <input type="submit" value="Submit comment">
         </form>
     </div>

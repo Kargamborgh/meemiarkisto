@@ -21,8 +21,8 @@ def memes_index():
 # join meme & user tables to display author in single meme view
 @app.route("/memes/<meme_id>", methods=["GET"])
 def meme_view(meme_id):
-    meme_with_user = db.session.query(Meme, User).join(User).filter(Meme.id == meme_id).first()
-    return render_template("memes/view.html", meme = meme_with_user, form=CommentForm())
+    meme_with_user_and_comments = db.session.query(Meme, User, Comment).join(User, Comment).filter(Meme.id == meme_id).first()
+    return render_template("memes/view.html", meme = meme_with_user_and_comments, form=CommentForm())
 
 @app.route("/memes/new/")
 @login_required(role="ANY")
