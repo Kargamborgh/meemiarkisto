@@ -11,9 +11,19 @@
   The users with most submitted memes:
 </p>
 <ol>
-  {% for user in most_memes %}
+  {% for most_memes_user in session["most_memes"] %}
   <li>
-    {{ user.username }}&nbsp;{{ user.amount }}
+    {{ most_memes_user.username }}&nbsp;{{ most_memes_user.amount }}
+  </li>
+  {% endfor %}
+</ol>
+<p>
+  Most commented memes:
+</p>
+<ol>
+  {% for most_comments_user in session["most_comments"] %}
+  <li>
+    {{ most_comments_user.username }}&nbsp;{{ most_comments_user.comments }}
   </li>
   {% endfor %}
 </ol>

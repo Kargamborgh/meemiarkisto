@@ -1,9 +1,10 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from flask_login import login_user, logout_user, current_user
   
 from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm
+from application.memes.models import Meme
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
@@ -20,6 +21,8 @@ def auth_login():
 
 
     login_user(user)
+    session["most_memes"] = Meme.find_most_memes_user()
+    session["most_comments"] = Meme.find_most_comments_user()
     return redirect(url_for("index"))
 
 @app.route("/auth/logout")

@@ -41,13 +41,13 @@ class Meme(Base):
         return response
 
     @staticmethod
-    def find_most_comments_meme():
-        statement = text("SELECT meme.title AS name, COUNT(comment.meme_id) AS comments "
-        "FROM comment INNER JOIN meme ON comment.meme_id = meme.id "
-        "GROUP BY meme.title ORDER BY comments DESC")
+    def find_most_comments_user():
+        statement = text("SELECT account.username AS username, COUNT(comment.account_id) AS comments "
+        "FROM comment INNER JOIN account ON comment.account_id = account.id "
+        "GROUP BY username ORDER BY comments DESC")
         retd = db.engine.execute(statement)
         response = []
         for row in retd:
-            response.append({"name":row[0], "comments":row[1]})
+            response.append({"username":row[0], "comments":row[1]})
 
         return response
